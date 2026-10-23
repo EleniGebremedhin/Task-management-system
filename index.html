@@ -51,11 +51,15 @@
         placeholder="Search tasks..."
         aria-label="Search tasks"
       />
+
       <div class="filters">
         <button type="button" data-filter="all">All</button>
         <button type="button" data-filter="pending">Pending</button>
         <button type="button" data-filter="completed">Completed</button>
+
+        <button type="button" id="export-tasks">Export Tasks (JSON)</button>
       </div>
+
       <section class="statistics">
         <p>Total: <span id="total-count">0</span></p>
         <p>Completed: <span id="completed-count">0</span></p>

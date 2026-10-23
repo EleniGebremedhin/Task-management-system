@@ -12,6 +12,7 @@ let currentFilter = "all";
 
 const taskForm = document.querySelector("#task-form");
 const taskDeadline = document.querySelector("#task-deadline");
+const exportButton = document.querySelector("#export-tasks");
 const taskCategory = document.querySelector("#task-category");
 const themeToggle = document.querySelector("#theme-toggle");
 const taskInput = document.querySelector("#task-input");
@@ -237,4 +238,26 @@ themeToggle.addEventListener("click", function () {
 
   applyTheme(newTheme);
   localStorage.setItem("task-management-system-theme", newTheme);
+});
+
+/* Export tasks to JSON */
+
+exportButton.addEventListener("click", function () {
+  const jsonData = JSON.stringify(tasks, null, 2);
+
+  const file = new Blob([jsonData], {
+    type: "application/json",
+  });
+
+  const downloadURL = URL.createObjectURL(file);
+
+  const downloadLink = document.createElement("a");
+  downloadLink.href = downloadURL;
+  downloadLink.download = "my-tasks.json";
+
+  document.body.append(downloadLink);
+  downloadLink.click();
+  downloadLink.remove();
+
+  URL.revokeObjectURL(downloadURL);
 });

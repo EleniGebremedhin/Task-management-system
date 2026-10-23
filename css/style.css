@@ -198,6 +198,7 @@ select:focus {
 .filters {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin: 16px 0 22px;
 }
@@ -208,6 +209,18 @@ select:focus {
 }
 
 .filters button:hover {
+  color: #ffffff;
+  background: var(--primary);
+}
+
+#export-tasks {
+  margin-left: auto;
+  color: var(--primary);
+  background: var(--soft-bg);
+  border: 1px solid var(--border);
+}
+
+#export-tasks:hover {
   color: #ffffff;
   background: var(--primary);
 }
@@ -459,4 +472,21 @@ select:focus {
 
 body.dark-mode .task-deadline.overdue {
   color: #ff9292;
+}
+
+/* Export tasks button */
+
+.export-section {
+  margin: 16px 0;
+}
+
+#export-tasks {
+  background: var(--soft-bg);
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+
+#export-tasks:hover {
+  background: var(--primary);
+  color: #ffffff;
 }
