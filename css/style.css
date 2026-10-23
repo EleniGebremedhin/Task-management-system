@@ -1,110 +1,344 @@
+/* =========================
+   1. Theme colors
+========================= */
+
+:root {
+  --page-bg: #f5f2fc;
+  --surface: #ffffff;
+  --text: #29243b;
+  --muted: #777187;
+  --primary: #7044c5;
+  --primary-hover: #5832a5;
+  --border: #e7e1f0;
+  --soft-bg: #f3effb;
+  --shadow: 0 12px 35px rgba(54, 35, 91, 0.09);
+}
+
+/* =========================
+   2. General styling
+========================= */
+
 * {
   box-sizing: border-box;
 }
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
-  color: #333;
   margin: 0;
-  padding: 30px 16px;
+  min-height: 100vh;
+  padding: 40px 18px;
+  font-family: Arial, sans-serif;
+  background: var(--page-bg);
+  color: var(--text);
+  line-height: 1.6;
 }
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(112, 68, 197, 0.25);
+  outline-offset: 2px;
+}
+
+/* =========================
+   3. Main dashboard
+========================= */
+
 .container {
-  max-width: 750px;
+  width: 100%;
+  max-width: 850px;
   margin: 0 auto;
-  background-color: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 35px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
 }
+
 h1 {
-  color: #6c3fc5;
+  margin: 0 0 6px;
+  color: var(--primary);
+  font-size: clamp(26px, 4vw, 34px);
+  line-height: 1.3;
+  letter-spacing: -0.8px;
 }
-form {
+
+.container > p {
+  color: var(--muted);
+}
+
+/* =========================
+   4. Add-task form
+========================= */
+
+#task-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 12px;
+  margin: 28px 0 20px;
 }
+
 input,
-select,
-button {
-  padding: 11px;
-  font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+select {
+  min-height: 44px;
+  padding: 11px 13px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
-form input {
+
+#task-form input {
   flex: 1;
   min-width: 180px;
 }
+
+#task-priority {
+  min-width: 145px;
+}
+
 button {
-  background-color: #6c3fc5;
-  color: white;
+  padding: 11px 16px;
+  color: #ffffff;
+  background: var(--primary);
   border: none;
-  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 600;
 }
+
 button:hover {
-  background-color: #542ca3;
+  background: var(--primary-hover);
 }
+
+#task-form button {
+  min-height: 44px;
+}
+
+/* =========================
+   5. Search box
+========================= */
+
 #search-input {
   width: 100%;
-  margin-bottom: 15px;
+  margin: 8px 0 16px;
 }
-.filters,
-.statistics {
+
+input::placeholder {
+  color: #9992a8;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+}
+
+/* =========================
+   6. Filters
+========================= */
+
+.filters {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin: 15px 0;
+  margin: 16px 0 22px;
 }
+
+.filters button {
+  color: var(--primary);
+  background: var(--soft-bg);
+}
+
+.filters button:hover {
+  color: #ffffff;
+  background: var(--primary);
+}
+
+/* =========================
+   7. Statistics
+========================= */
+
 .statistics {
-  justify-content: space-between;
-  background-color: #f4f0fc;
-  padding: 10px;
-  border-radius: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
 }
+
 .statistics p {
-  margin: 5px;
+  margin: 0;
+  padding: 16px 10px;
+  text-align: center;
+  background: var(--soft-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--muted);
+  font-size: 14px;
 }
+
+.statistics span {
+  display: block;
+  color: var(--primary);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+/* =========================
+   8. Task list and cards
+========================= */
+
 #task-list {
-  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin: 0;
   padding: 0;
+  list-style: none;
 }
+
 .task-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  padding: 12px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  gap: 16px;
+  padding: 17px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+.task-item:hover {
+  border-color: #c9b6ee;
+  box-shadow: 0 5px 16px rgba(54, 35, 91, 0.06);
+}
+
+.task-title {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.task-item.completed .task-title {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+/* =========================
+   9. Priority labels
+========================= */
+
+.priority {
+  display: inline-block;
+  margin-top: 5px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* =========================
+   10. Task action buttons
+========================= */
 
 .task-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .task-actions button {
-  border-radius: 6px;
+  padding: 8px 11px;
+  font-size: 13px;
 }
 
-.task-item.completed .task-title {
-  text-decoration: line-through;
-  color: #777;
+.task-actions button:last-child {
+  background: #d94d68;
 }
-.priority {
-  font-size: 12px;
-  color: #6c3fc5;
+
+.task-actions button:last-child:hover {
+  background: #b9324e;
 }
-@media (max-width: 480px) {
-  .container {
-    padding: 16px;
+
+/* =========================
+   11. Empty state
+========================= */
+
+#empty-message {
+  padding: 20px 12px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--soft-bg);
+  border-radius: 12px;
+}
+
+/* =========================
+   12. Responsive layout
+========================= */
+
+@media (max-width: 600px) {
+  body {
+    padding: 18px 10px;
   }
-  .task-item {
+
+  .container {
+    padding: 22px 16px;
+    border-radius: 15px;
+  }
+
+  #task-form {
     flex-direction: column;
+  }
+
+  #task-form input,
+  #task-priority,
+  #task-form button {
+    width: 100%;
+  }
+
+  .statistics {
+    gap: 7px;
+  }
+
+  .statistics p {
+    padding: 12px 5px;
+    font-size: 12px;
+  }
+
+  .statistics span {
+    font-size: 21px;
+  }
+
+  .task-item {
     align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .task-actions {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
   }
 }
