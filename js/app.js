@@ -11,6 +11,7 @@ let tasks = loadTasks();
 let currentFilter = "all";
 
 const taskForm = document.querySelector("#task-form");
+const taskCategory = document.querySelector("#task-category");
 const themeToggle = document.querySelector("#theme-toggle");
 const taskInput = document.querySelector("#task-input");
 const taskPriority = document.querySelector("#task-priority");
@@ -57,8 +58,10 @@ function renderTasks() {
     priority.className = `priority priority-${task.priority}`;
 
     priority.textContent = `${task.priority} priority`;
-    taskDetails.append(title, priority);
-
+    const category = document.createElement("span");
+    category.className = "task-category";
+    category.textContent = task.category || "Other";
+    taskDetails.append(title, priority, category);
     const actions = document.createElement("div");
     actions.className = "task-actions";
 
@@ -156,7 +159,7 @@ taskForm.addEventListener("submit", function (event) {
     alert(priorityError);
     return;
   }
-  const newTask = createTask(title, taskPriority.value);
+  const newTask = createTask(title, taskPriority.value, taskCategory.value);
   tasks.push(newTask);
 
   saveTasks(tasks);

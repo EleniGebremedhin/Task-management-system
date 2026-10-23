@@ -1,8 +1,9 @@
-export function createTask(title, priority) {
+export function createTask(title, priority, category) {
   return {
     id: crypto.randomUUID(),
     title: title.trim(),
     priority: priority,
+    category: category,
     completed: false,
   };
 }
