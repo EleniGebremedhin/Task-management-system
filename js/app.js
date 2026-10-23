@@ -1,5 +1,10 @@
 import { validateTaskTitle } from "./validation.js";
-import { createTask, deleteTask, toggleTaskCompletion } from "./task.js";
+import {
+  createTask,
+  deleteTask,
+  toggleTaskCompletion,
+  updateTask,
+} from "./task.js";
 import { saveTasks, loadTasks } from "./storage.js";
 
 let tasks = loadTasks();
@@ -65,6 +70,46 @@ function renderTasks() {
       renderTasks();
     });
 
+    const editButton = document.createElement("button");
+    editButton.type = "button";
+    editButton.textContent = "Edit";
+
+    editButton.addEventListener("click", function () {
+      const newTitle = prompt("Enter the updated task title:", task.title);
+
+      if (newTitle === null) {
+        return;
+      }
+
+      const validationError = validateTaskTitle(newTitle);
+
+      if (validationError) {
+        alert(validationError);
+        return;
+      }
+
+      const newPriority = prompt(
+        "Enter priority: low, medium, or high",
+        task.priority,
+      );
+
+      if (newPriority === null) {
+        return;
+      }
+
+      const normalizedPriority = newPriority.trim().toLowerCase();
+
+      if (!["low", "medium", "high"].includes(normalizedPriority)) {
+        alert("Priority must be low, medium, or high.");
+        return;
+      }
+
+      tasks = updateTask(tasks, task.id, newTitle, normalizedPriority);
+
+      saveTasks(tasks);
+      renderTasks();
+    });
+
     const deleteButton = document.createElement("button");
     deleteButton.type = "button";
     deleteButton.textContent = "Delete";
@@ -75,7 +120,7 @@ function renderTasks() {
       renderTasks();
     });
 
-    actions.append(completeButton, deleteButton);
+    actions.append(completeButton, editButton, deleteButton);
     listItem.append(taskDetails, actions);
     taskList.append(listItem);
   });
