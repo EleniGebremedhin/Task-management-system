@@ -245,11 +245,27 @@ select:focus {
 
 .priority {
   display: inline-block;
-  margin-top: 5px;
-  color: var(--primary);
+  margin-top: 6px;
+  padding: 4px 9px;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
   text-transform: capitalize;
+}
+
+.priority-high {
+  color: #c62828;
+  background: #ffebee;
+}
+
+.priority-medium {
+  color: #9a5b00;
+  background: #fff3d6;
+}
+
+.priority-low {
+  color: #237a45;
+  background: #e4f6e9;
 }
 
 /* =========================

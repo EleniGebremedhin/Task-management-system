@@ -52,9 +52,10 @@ function renderTasks() {
     title.textContent = task.title;
 
     const priority = document.createElement("span");
-    priority.className = "priority";
-    priority.textContent = ` (${task.priority} priority)`;
 
+    priority.className = `priority priority-${task.priority}`;
+
+    priority.textContent = `${task.priority} priority`;
     taskDetails.append(title, priority);
 
     const actions = document.createElement("div");
