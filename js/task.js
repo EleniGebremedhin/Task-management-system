@@ -1,4 +1,5 @@
 let nextTaskId = 1;
+
 export function createTask(title, priority) {
   return {
     id: nextTaskId++,
@@ -7,11 +8,13 @@ export function createTask(title, priority) {
     completed: false,
   };
 }
+
 export function deleteTask(tasks, taskId) {
   return tasks.filter(function (task) {
     return task.id !== taskId;
   });
 }
+
 export function toggleTaskCompletion(tasks, taskId) {
   return tasks.map(function (task) {
     if (task.id === taskId) {
@@ -20,6 +23,21 @@ export function toggleTaskCompletion(tasks, taskId) {
         completed: !task.completed,
       };
     }
+
+    return task;
+  });
+}
+
+export function updateTask(tasks, taskId, newTitle, newPriority) {
+  return tasks.map(function (task) {
+    if (task.id === taskId) {
+      return {
+        ...task,
+        title: newTitle.trim(),
+        priority: newPriority,
+      };
+    }
+
     return task;
   });
 }

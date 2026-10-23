@@ -80,6 +80,17 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 6px;
 }
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task-actions button {
+  border-radius: 6px;
+}
+
 .task-item.completed .task-title {
   text-decoration: line-through;
   color: #777;
