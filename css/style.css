@@ -18,6 +18,49 @@
    2. General styling
 ========================= */
 
+/* Dark theme colors */
+
+body.dark-mode {
+  --page-bg: #171522;
+  --surface: #231f32;
+  --text: #f2effa;
+  --muted: #b8b0ca;
+  --primary: #b69aff;
+  --primary-hover: #9c79f5;
+  --border: #3b344f;
+  --soft-bg: #302941;
+  --shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .filters button {
+  color: var(--text);
+  background: var(--soft-bg);
+}
+
+body.dark-mode .filters button:hover {
+  color: #ffffff;
+  background: var(--primary-hover);
+}
+
+body.dark-mode .priority-high {
+  color: #ff9aab;
+  background: #512b3a;
+}
+
+body.dark-mode .priority-medium {
+  color: #ffd27a;
+  background: #4b3b25;
+}
+
+body.dark-mode .priority-low {
+  color: #8ee0a8;
+  background: #244332;
+}
+
+body.dark-mode .task-item:hover {
+  border-color: var(--primary);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -356,5 +399,32 @@ select:focus {
   *::before,
   *::after {
     transition: none !important;
+  }
+}
+
+/* App header and theme toggle */
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.app-header p {
+  margin-bottom: 0;
+}
+
+#theme-toggle {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 }

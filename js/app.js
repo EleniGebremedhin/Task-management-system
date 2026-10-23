@@ -11,6 +11,7 @@ let tasks = loadTasks();
 let currentFilter = "all";
 
 const taskForm = document.querySelector("#task-form");
+const themeToggle = document.querySelector("#theme-toggle");
 const taskInput = document.querySelector("#task-input");
 const taskPriority = document.querySelector("#task-priority");
 const taskList = document.querySelector("#task-list");
@@ -178,3 +179,27 @@ document.querySelectorAll("[data-filter]").forEach(function (button) {
 
 // Display tasks when the page opens
 renderTasks();
+
+/* Dark mode and theme preference */
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+
+  document.body.classList.toggle("dark-mode", isDark);
+
+  themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+}
+
+const savedTheme = localStorage.getItem("task-management-system-theme");
+
+applyTheme(savedTheme === "dark" ? "dark" : "light");
+
+themeToggle.addEventListener("click", function () {
+  const isDark = document.body.classList.contains("dark-mode");
+  const newTheme = isDark ? "light" : "dark";
+
+  applyTheme(newTheme);
+  localStorage.setItem("task-management-system-theme", newTheme);
+});
