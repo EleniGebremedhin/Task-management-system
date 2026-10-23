@@ -106,6 +106,7 @@ function renderTasks() {
     editButton.textContent = "Edit";
 
     editButton.addEventListener("click", function () {
+      // Ask for the updated task title
       const newTitle = prompt("Enter the updated task title:", task.title);
 
       if (newTitle === null) {
@@ -119,6 +120,7 @@ function renderTasks() {
         return;
       }
 
+      // Ask for the updated priority
       const newPriority = prompt(
         "Enter priority: low, medium, or high",
         task.priority,
@@ -136,7 +138,61 @@ function renderTasks() {
         return;
       }
 
-      tasks = updateTask(tasks, task.id, newTitle, normalizedPriority);
+      // Ask for the updated category
+      const newCategory = prompt(
+        "Enter category: Study, Work, Personal, or Other",
+        task.category || "Other",
+      );
+
+      if (newCategory === null) {
+        return;
+      }
+
+      const normalizedCategory = newCategory.trim().toLowerCase();
+
+      const allowedCategories = ["study", "work", "personal", "other"];
+
+      if (!allowedCategories.includes(normalizedCategory)) {
+        alert("Please enter Study, Work, Personal, or Other.");
+        return;
+      }
+
+      // Ask for the updated deadline
+      const newDeadline = prompt(
+        "Enter deadline as YYYY-MM-DD, or leave blank to remove it:",
+        task.deadline || "",
+      );
+
+      if (newDeadline === null) {
+        return;
+      }
+
+      const normalizedDeadline = newDeadline.trim();
+
+      // Validate the deadline if one was entered
+      if (normalizedDeadline !== "") {
+        const datePattern = /^\d{4}-\d{2}-\d{2}$/;
+        const parsedDate = new Date(`${normalizedDeadline}T00:00:00`);
+
+        if (
+          !datePattern.test(normalizedDeadline) ||
+          Number.isNaN(parsedDate.getTime()) ||
+          parsedDate.toISOString().slice(0, 10) !== normalizedDeadline
+        ) {
+          alert("Please enter a valid date in YYYY-MM-DD format.");
+          return;
+        }
+      }
+
+      // Save all the updated task details
+      tasks = updateTask(
+        tasks,
+        task.id,
+        newTitle,
+        normalizedPriority,
+        normalizedCategory,
+        normalizedDeadline,
+      );
 
       saveTasks(tasks);
       renderTasks();

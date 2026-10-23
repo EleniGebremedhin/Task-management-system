@@ -28,13 +28,22 @@ export function toggleTaskCompletion(tasks, taskId) {
   });
 }
 
-export function updateTask(tasks, taskId, newTitle, newPriority) {
+export function updateTask(
+  tasks,
+  taskId,
+  newTitle,
+  newPriority,
+  newCategory,
+  newDeadline,
+) {
   return tasks.map(function (task) {
     if (task.id === taskId) {
       return {
         ...task,
         title: newTitle.trim(),
         priority: newPriority,
+        category: newCategory,
+        deadline: newDeadline,
       };
     }
 
