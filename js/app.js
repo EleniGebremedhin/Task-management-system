@@ -11,6 +11,7 @@ let tasks = loadTasks();
 let currentFilter = "all";
 
 const taskForm = document.querySelector("#task-form");
+const taskDeadline = document.querySelector("#task-deadline");
 const taskCategory = document.querySelector("#task-category");
 const themeToggle = document.querySelector("#theme-toggle");
 const taskInput = document.querySelector("#task-input");
@@ -61,7 +62,31 @@ function renderTasks() {
     const category = document.createElement("span");
     category.className = "task-category";
     category.textContent = task.category || "Other";
-    taskDetails.append(title, priority, category);
+    const deadline = document.createElement("span");
+    deadline.className = "task-deadline";
+
+    if (task.deadline) {
+      const dueDate = new Date(`${task.deadline}T00:00:00`);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const formattedDate = dueDate.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+
+      deadline.textContent = `Due: ${formattedDate}`;
+
+      if (dueDate < today && !task.completed) {
+        deadline.textContent = `Overdue: ${formattedDate}`;
+        deadline.classList.add("overdue");
+      }
+    } else {
+      deadline.textContent = "No deadline";
+    }
+
+    taskDetails.append(title, priority, category, deadline);
     const actions = document.createElement("div");
     actions.className = "task-actions";
 
@@ -159,12 +184,19 @@ taskForm.addEventListener("submit", function (event) {
     alert(priorityError);
     return;
   }
-  const newTask = createTask(title, taskPriority.value, taskCategory.value);
+  const newTask = createTask(
+    title,
+    taskPriority.value,
+    taskCategory.value,
+    taskDeadline.value,
+  );
   tasks.push(newTask);
 
   saveTasks(tasks);
   taskForm.reset();
   taskPriority.value = "medium";
+  taskCategory.value = "Study";
+  taskDeadline.value = "";
 
   renderTasks();
 });
