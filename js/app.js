@@ -1,4 +1,4 @@
-import { validateTaskTitle } from "./validation.js";
+import { validateTaskTitle, validateTaskPriority } from "./validation.js";
 import {
   createTask,
   deleteTask,
@@ -98,9 +98,10 @@ function renderTasks() {
       }
 
       const normalizedPriority = newPriority.trim().toLowerCase();
+      const priorityError = validateTaskPriority(normalizedPriority);
 
-      if (!["low", "medium", "high"].includes(normalizedPriority)) {
-        alert("Priority must be low, medium, or high.");
+      if (priorityError) {
+        alert(priorityError);
         return;
       }
 
@@ -147,7 +148,12 @@ taskForm.addEventListener("submit", function (event) {
     alert(validationError);
     return;
   }
+  const priorityError = validateTaskPriority(taskPriority.value);
 
+  if (priorityError) {
+    alert(priorityError);
+    return;
+  }
   const newTask = createTask(title, taskPriority.value);
   tasks.push(newTask);
 
