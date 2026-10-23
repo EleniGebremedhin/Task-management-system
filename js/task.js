@@ -1,8 +1,6 @@
-let nextTaskId = 1;
-
 export function createTask(title, priority) {
   return {
-    id: nextTaskId++,
+    id: crypto.randomUUID(),
     title: title.trim(),
     priority: priority,
     completed: false,
